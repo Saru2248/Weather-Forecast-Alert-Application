@@ -10,7 +10,7 @@ Here’s a **clean, professional, interview-ready README.md** — rewritten to s
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green?style=flat-square\&logo=fastapi)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.35-red?style=flat-square\&logo=streamlit)
 ![SQLite](https://img.shields.io/badge/SQLite-3-lightgrey?style=flat-square\&logo=sqlite)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+
 
 ---
 
