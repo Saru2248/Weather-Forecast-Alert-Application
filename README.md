@@ -243,13 +243,7 @@ docker-compose up --build
 * Map visualization (Leaflet)
 * Push notifications (mobile)
 
----
 
-## 📜 License
-
-MIT License
-
----
 
 ## 👨‍💻 Author
 
