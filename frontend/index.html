@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast & Alert System</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <h3 id="loader-text">Loading Weather Data...</h3>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast">Notification Message</div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <i class="fa-solid fa-cloud-bolt"></i> WeatherIntell
+        </div>
+        
+        <div class="control-group" style="margin-top: 20px;">
+            <label><i class="fa-solid fa-location-dot"></i> Select Location</label>
+            <select id="city-select" onchange="loadCityData()"></select>
+        </div>
+
+        <div style="margin-top: auto; display: flex; flex-direction: column; gap: 15px;">
+            <button class="btn btn-primary" onclick="triggerIngest()">
+                <i class="fa-solid fa-rotate"></i> Fetch Latest Data
+            </button>
+            <button class="btn btn-danger" onclick="triggerAlerts()">
+                <i class="fa-solid fa-triangle-exclamation"></i> Run Alert Engine
+            </button>
+            
+            <div class="card" style="padding: 15px; text-align: left; margin-top: 10px;">
+                <h4 style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">System Status</h4>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px;">
+                    <span>API Server</span> <span style="color: var(--accent-green);">● Online</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                    <span>Last Updated</span> <span id="last-update-time" style="color: var(--accent-blue);">--:--</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div>
+                <h1 id="display-city">Loading...</h1>
+                <p id="display-desc"><i class="fa-solid fa-info-circle"></i> Select a city to view weather intelligence.</p>
+            </div>
+            <div id="current-time" style="font-weight: 600; font-size: 1.2rem; color: var(--accent-blue);">--:--</div>
+        </div>
+
+        <!-- Current Weather Metrics -->
+        <div class="metrics-grid">
+            <div class="card">
+                <i class="fa-solid fa-temperature-half" style="color: #fbbf24;"></i>
+                <div class="metric-value" id="val-temp">--<span>°C</span></div>
+                <div class="metric-label">Temperature</div>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-droplet" style="color: #60a5fa;"></i>
+                <div class="metric-value" id="val-humidity">--<span>%</span></div>
+                <div class="metric-label">Humidity</div>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-wind" style="color: #a78bfa;"></i>
+                <div class="metric-value" id="val-wind">--<span>km/h</span></div>
+                <div class="metric-label">Wind Speed</div>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-cloud-showers-water" style="color: #34d399;"></i>
+                <div class="metric-value" id="val-rain">--<span>%</span></div>
+                <div class="metric-label">Rain Prob</div>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-sun" style="color: #fb923c;"></i>
+                <div class="metric-value" id="val-uv">--</div>
+                <div class="metric-label">UV Index</div>
+            </div>
+        </div>
+
+        <!-- Charts and Alerts -->
+        <div class="dashboard-grid">
+            <!-- Left: Charts -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div class="panel">
+                    <h3><i class="fa-solid fa-chart-line"></i> 48-Hour Temperature & Rain Forecast</h3>
+                    <div class="chart-container">
+                        <canvas id="weatherChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Alerts -->
+            <div class="panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; margin-bottom: 15px;">
+                    <h3 style="border: none; padding: 0; margin: 0;"><i class="fa-solid fa-bell"></i> Active Alerts</h3>
+                    <span id="alert-count" style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">0</span>
+                </div>
+                
+                <div class="alerts-list" id="alerts-container">
+                    <!-- Alerts will be injected here -->
+                    <div style="text-align: center; padding: 30px 10px; color: var(--text-muted);">
+                        <i class="fa-solid fa-shield-check" style="font-size: 2rem; margin-bottom: 10px; color: var(--accent-green);"></i>
+                        <p>No active alerts for this location.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
+</body>
+</html>
